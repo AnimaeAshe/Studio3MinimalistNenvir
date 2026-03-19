@@ -1,7 +1,4 @@
 (function () {
-  const bgm = new Audio("/Studio3MinimalistNenvir/bgm.mp3");
-  bgm.loop = true;
-  bgm.volume = 0.5;
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
   const width = 800;
