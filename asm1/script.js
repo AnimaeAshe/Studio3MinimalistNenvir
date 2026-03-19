@@ -1,5 +1,5 @@
 (function () {
-  const bgm = new Audio("bgm.mp3");
+  const bgm = new Audio("/Studio3MinimalistNenvir/bgm.mp3");
   bgm.loop = true;
   bgm.volume = 0.5;
   const canvas = document.getElementById("canvas");
