@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.container {
+  position: relative;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1); /* 微弱的白晕 */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  width: 800px;
+  height: 600px;
+  background: #000;
+  cursor: none;
+}
+
+.info {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+  letter-spacing: 2px;
+  pointer-events: none;
+  z-index: 10;
+  backdrop-filter: blur(2px);
+  padding: 4px 10px;
+  border-radius: 30px;
+  background: rgba(30, 30, 30, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info span {
+  color: rgba(255, 255, 255, 0.5);
+}
