@@ -3,6 +3,7 @@
   const ctx = canvas.getContext("2d");
   const width = 800;
   const height = 600;
+  const bgm = document.getElementById("bgm");
 
   // generate Particles
   const PARTICLE_COUNT = 190;
