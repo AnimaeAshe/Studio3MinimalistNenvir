@@ -2,8 +2,16 @@
   // canvas setup
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
-  const width = 1980;
-  const height = 1080;
+  const width = 800;
+  const height = 600;
+
+  // remove loading
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const loader = document.getElementById("loader");
+      if (loader) loader.remove();
+    }, 2500);
+  });
 
   // play bgm
   const bgm = document.getElementById("bgm");
@@ -44,6 +52,14 @@
     mouseX = (e.clientX - rect.left) * scaleX;
     mouseY = (e.clientY - rect.top) * scaleY;
     mouseActive = true;
+
+    //start music
+    if (!musicStarted) {
+      bgm.play().catch(() => {
+        console.log("autoplay blocked");
+      });
+      musicStarted = true;
+    }
   });
 
   canvas.addEventListener("mouseleave", () => {
