@@ -5,6 +5,7 @@
   const width = 800;
   const height = 600;
   const bgm = document.getElementById("bgm");
+  let audioUnlocked = false; 
 
   // generate Particles
   const PARTICLE_COUNT = 190;
@@ -30,9 +31,6 @@
     });
   }
 
-  const overlay = document.getElementById("overlay");
-  let audioUnlocked = false;
-
   // mouse listener
   canvas.addEventListener("mousemove", (e) => {
     const rect = canvas.getBoundingClientRect();
@@ -43,24 +41,16 @@
     mouseY = (e.clientY - rect.top) * scaleY;
     mouseActive = true;
 
-    if (audioUnlocked && bgm.paused) bgm.play();
+    if (!audioUnlocked) {
+      bgm.play()
+        .then(() => {
+          audioUnlocked = true;
+        })
+    }
   });
 
   canvas.addEventListener("mouseleave", () => {
     mouseActive = false;
-  });
-
-  overlay.addEventListener("click", () => {
-    overlay.classList.add("hidden");
-
-    bgm
-      .play()
-      .then(() => {
-        bgm.pause();
-        bgm.currentTime = 0;
-        audioUnlocked = true;
-      })
-      .catch(() => {});
   });
 
   // animation
@@ -129,5 +119,7 @@
     requestAnimationFrame(animate);
   }
 
+
   animate();
+
 })();
