@@ -5,6 +5,14 @@
   const width = 800;
   const height = 600;
 
+  // remove loading
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const loader = document.getElementById("loader");
+      if (loader) loader.remove();
+    }, 2500);
+  });
+
   // play bgm
   const bgm = document.getElementById("bgm");
   let musicStarted = false;
@@ -53,6 +61,7 @@
       });
       musicStarted = true;
     }
+  });
 
   canvas.addEventListener("mouseleave", () => {
     mouseActive = false;
@@ -68,7 +77,7 @@
       p.x += p.vx;
       p.y += p.vy;
 
-      // limit particles from the border
+      // limit particles
       if (p.x < 0 || p.x > width) p.vx *= -0.5;
       if (p.y < 0 || p.y > height) p.vy *= -0.5;
 
@@ -78,13 +87,7 @@
         p.vy += (Math.random() - 0.5) * 0.05;
       }
 
-      // limit speed
-              const maxSpeed = 0.2;
-        if (Math.abs(p.vx) > maxSpeed) p.vx *= 0.5;
-        if (Math.abs(p.vy) > maxSpeed) p.vy *= 0.5;
-      }
-
-      // keeping away from mouse
+      // let particles keep away from mouse
       if (mouseActive) {
         const dx = p.x - mouseX;
         const dy = p.y - mouseY;
@@ -110,7 +113,7 @@
       ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
 
       // pure white with breathing alpha
-      const alpha = 0.7 + 0.3 * Math.sin(p.phase * 0.5); 
+      const alpha = 0.7 + 0.3 * Math.sin(p.phase * 0.5); // 透明度也微呼吸
       ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
       ctx.fill();
 
@@ -125,5 +128,4 @@
   }
 
   animate();
-
 })();

@@ -4,64 +4,6 @@
   box-sizing: border-box;
 }
 
-/* loader */
-#loader {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 999;
-  animation: fadeOut 2s ease forwards;
-  animation-delay: 1.5s;
-}
-
-/* corner lights */
-.corner {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(white, transparent 70%);
-  filter: blur(30px);
-  opacity: 0;
-  animation: glow 1.5s ease forwards;
-}
-
-.tl {
-  top: 0;
-  left: 0;
-}
-.tr {
-  top: 0;
-  right: 0;
-}
-.bl {
-  bottom: 0;
-  left: 0;
-}
-.br {
-  bottom: 0;
-  right: 0;
-}
-
-/* fade in */
-@keyframes glow {
-  from {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  to {
-    opacity: 0.9;
-    transform: scale(1);
-  }
-}
-
-/* fade out*/
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
 body {
   background: #000;
   min-height: 100vh;
