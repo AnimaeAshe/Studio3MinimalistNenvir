@@ -4,21 +4,8 @@
   const ctx = canvas.getContext("2d");
   const width = 800;
   const height = 600;
-
-  // remove loading
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const loader = document.getElementById("loader");
-      if (loader) loader.remove();
-    }, 2500);
-  });
-
-  // play bgm
   const bgm = document.getElementById("bgm");
-  let musicStarted = false;
-  bgm.onplay = () => {
-    musicStarted = true;
-  };
+  let audioUnlocked = false; 
 
   // generate Particles
   const PARTICLE_COUNT = 190;
@@ -54,12 +41,11 @@
     mouseY = (e.clientY - rect.top) * scaleY;
     mouseActive = true;
 
-    //start music
-    if (!musicStarted) {
-      bgm.play().catch(() => {
-        console.log("autoplay blocked");
-      });
-      musicStarted = true;
+    if (!audioUnlocked) {
+      bgm.play()
+        .then(() => {
+          audioUnlocked = true;
+        })
     }
   });
 
@@ -77,7 +63,7 @@
       p.x += p.vx;
       p.y += p.vy;
 
-      // limit particles
+      // limit particles from the border
       if (p.x < 0 || p.x > width) p.vx *= -0.5;
       if (p.y < 0 || p.y > height) p.vy *= -0.5;
 
@@ -85,6 +71,12 @@
       if (Math.random() < 0.02) {
         p.vx += (Math.random() - 0.5) * 0.05;
         p.vy += (Math.random() - 0.5) * 0.05;
+      }
+
+      // limit speed
+              const maxSpeed = 0.2;
+        if (Math.abs(p.vx) > maxSpeed) p.vx *= 0.5;
+        if (Math.abs(p.vy) > maxSpeed) p.vy *= 0.5;
       }
 
       // let particles keep away from mouse
@@ -127,5 +119,7 @@
     requestAnimationFrame(animate);
   }
 
+
   animate();
+
 })();
