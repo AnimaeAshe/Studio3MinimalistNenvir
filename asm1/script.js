@@ -5,7 +5,6 @@
   const width = 800;
   const height = 600;
   const bgm = document.getElementById("bgm");
-  let audioUnlocked = false;
 
   // generate Particles
   const PARTICLE_COUNT = 190;
