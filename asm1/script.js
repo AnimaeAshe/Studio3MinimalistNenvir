@@ -4,21 +4,8 @@
   const ctx = canvas.getContext("2d");
   const width = 800;
   const height = 600;
-
-  // remove loading
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const loader = document.getElementById("loader");
-      if (loader) loader.remove();
-    }, 2500);
-  });
-
-  // play bgm
+  // bgm setup
   const bgm = document.getElementById("bgm");
-  let musicStarted = false;
-  bgm.onplay = () => {
-    musicStarted = true;
-  };
 
   // generate Particles
   const PARTICLE_COUNT = 190;
@@ -54,17 +41,22 @@
     mouseY = (e.clientY - rect.top) * scaleY;
     mouseActive = true;
 
-    //start music
-    if (!musicStarted) {
-      bgm.play().catch(() => {
-        console.log("autoplay blocked");
-      });
-      musicStarted = true;
-    }
+    if (audioUnlocked && bgm.paused) bgm.play();
   });
 
-  canvas.addEventListener("mouseleave", () => {
-    mouseActive = false;
+  let audioUnlocked = false;
+  const overlay = document.getElementById("overlay");
+
+  overlay.addEventListener("click", () => {
+    overlay.classList.add("hidden");
+    bgm
+      .play()
+      .then(() => {
+        bgm.pause();
+        bgm.currentTime = 0;
+        audioUnlocked = true;
+      })
+      .catch(() => {});
   });
 
   // animation
