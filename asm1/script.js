@@ -4,8 +4,8 @@
   const ctx = canvas.getContext("2d");
   const width = 800;
   const height = 600;
-  // bgm setup
   const bgm = document.getElementById("bgm");
+  let audioUnlocked = false;
 
   // generate Particles
   const PARTICLE_COUNT = 190;
@@ -31,6 +31,9 @@
     });
   }
 
+  const overlay = document.getElementById("overlay");
+  let audioUnlocked = false;
+
   // mouse listener
   canvas.addEventListener("mousemove", (e) => {
     const rect = canvas.getBoundingClientRect();
@@ -48,11 +51,9 @@
     mouseActive = false;
   });
 
-  let audioUnlocked = false;
-  const overlay = document.getElementById("overlay");
-
   overlay.addEventListener("click", () => {
     overlay.classList.add("hidden");
+
     bgm
       .play()
       .then(() => {
@@ -73,7 +74,7 @@
       p.x += p.vx;
       p.y += p.vy;
 
-      // limit particles
+      // limit particles from the border
       if (p.x < 0 || p.x > width) p.vx *= -0.5;
       if (p.y < 0 || p.y > height) p.vy *= -0.5;
 
@@ -81,6 +82,12 @@
       if (Math.random() < 0.02) {
         p.vx += (Math.random() - 0.5) * 0.05;
         p.vy += (Math.random() - 0.5) * 0.05;
+      }
+
+      // limit speed
+              const maxSpeed = 0.2;
+        if (Math.abs(p.vx) > maxSpeed) p.vx *= 0.5;
+        if (Math.abs(p.vy) > maxSpeed) p.vy *= 0.5;
       }
 
       // let particles keep away from mouse
