@@ -4,7 +4,5 @@ These dots keep expanding and contracting, like breathing lights, and float free
 
 When the mouse moves, the dots dodge it. The concept likely aims to convey the idea that the more one tries to force a solution, the further one drifts from the correct answer.
 
-I definitely wannna use three-js next time.
-
 attributes:
 BGM: 伊賀拓郎 - やさしい時間

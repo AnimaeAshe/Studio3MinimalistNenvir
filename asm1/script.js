@@ -28,6 +28,7 @@
   let mouseX = -1000;
   let mouseY = -1000;
   let mouseActive = false;
+  let mouseTrail = [];
 
   // initialize particles
   for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -52,6 +53,27 @@
     mouseX = (e.clientX - rect.left) * scaleX;
     mouseY = (e.clientY - rect.top) * scaleY;
     mouseActive = true;
+
+    // add mouse trail
+    mouseTrail.push({
+      x: mouseX,
+      y: mouseY,
+      life: 1,
+      size: 4 + Math.random() * 3,
+    });
+
+    // limit trail length
+    if (mouseTrail.length > 40) {
+      mouseTrail.shift();
+    }
+
+    //mouse particle
+    if (mouseActive) {
+      ctx.beginPath();
+      ctx.arc(mouseX, mouseY, 6, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 255, 255, 1)";
+      ctx.fill();
+    }
 
     //start music
     if (!musicStarted) {
