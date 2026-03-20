@@ -1,11 +1,16 @@
 (function () {
+  // canvas setup
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
   const width = 1980;
   const height = 1080;
 
+  // play bgm
   const bgm = document.getElementById("bgm");
   let musicStarted = false;
+  bgm.onplay = () => {
+    musicStarted = true;
+  };
 
   // generate Particles
   const PARTICLE_COUNT = 190;
