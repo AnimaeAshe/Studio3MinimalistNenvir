@@ -4,8 +4,13 @@
   const ctx = canvas.getContext("2d");
   const width = 800;
   const height = 600;
+
+  // play bgm
   const bgm = document.getElementById("bgm");
-  let audioUnlocked = false; 
+  let musicStarted = false;
+  bgm.onplay = () => {
+    musicStarted = true;
+  };
 
   // generate Particles
   const PARTICLE_COUNT = 190;
@@ -41,13 +46,13 @@
     mouseY = (e.clientY - rect.top) * scaleY;
     mouseActive = true;
 
-    if (!audioUnlocked) {
-      bgm.play()
-        .then(() => {
-          audioUnlocked = true;
-        })
+    //start music
+    if (!musicStarted) {
+      bgm.play().catch(() => {
+        console.log("autoplay blocked");
+      });
+      musicStarted = true;
     }
-  });
 
   canvas.addEventListener("mouseleave", () => {
     mouseActive = false;
@@ -79,7 +84,7 @@
         if (Math.abs(p.vy) > maxSpeed) p.vy *= 0.5;
       }
 
-      // let particles keep away from mouse
+      // keeping away from mouse
       if (mouseActive) {
         const dx = p.x - mouseX;
         const dy = p.y - mouseY;
@@ -105,7 +110,7 @@
       ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
 
       // pure white with breathing alpha
-      const alpha = 0.7 + 0.3 * Math.sin(p.phase * 0.5); // 透明度也微呼吸
+      const alpha = 0.7 + 0.3 * Math.sin(p.phase * 0.5); 
       ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
       ctx.fill();
 
@@ -118,7 +123,6 @@
 
     requestAnimationFrame(animate);
   }
-
 
   animate();
 
