@@ -44,6 +44,10 @@
     if (audioUnlocked && bgm.paused) bgm.play();
   });
 
+  canvas.addEventListener("mouseleave", () => {
+    mouseActive = false;
+  });
+
   let audioUnlocked = false;
   const overlay = document.getElementById("overlay");
 
